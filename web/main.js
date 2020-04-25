@@ -23,7 +23,7 @@ function setWaypoint() {
     // Calls clearError function to remove alert message after 3 seconds
     setTimeout(clearError, 3000);
   } else {
-    // Python to actually generate the QRCode
+    // Python to actually generate the waypoints
     eel.set_waypoint(
       data1,
       data2,
