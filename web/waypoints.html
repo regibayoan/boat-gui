@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Autonomous Boat</title>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+      #loading {
+        display: none;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/dcb896f5a9.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <button class="btn btn-lg">
+        <a style="color: gray;" href="gui.html"
+          ><i style="padding: 0.5rem;" class="fas fa-home fa-lg"></i
+        ></a>
+      </button>
+      <h1 class="text-center">Waypoints</h1>
+      <p class="text-center">Set waypoints for the robot</p>
+      <div id="map"></div>
+    </div>
+    <div class="container">
+      <!-- Loading ... -->
+      <div id="loading" class="text-center">
+        <img src="loading.gif" alt="" />
+      </div>
+      <form class="heading">
+        <h5>Waypoint 1</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="w1-lat">Latitude</label>
+            <!-- input type='number' so only accepts number inputs -->
+            <!-- id so able to grab value from main.js -->
+            <input type="number" class="form-control" id="w1-lat" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="w1-lon">Longitude</label>
+            <input type="number" class="form-control" id="w1-lon" />
+          </div>
+        </div>
+      </form>
+      <form>
+        <h5>Waypoint 2</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="w2-lat">Latitude</label>
+            <input type="number" class="form-control" id="w2-lat" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="w2-lon">Longitude</label>
+            <input type="number" class="form-control" id="w2-lon" />
+          </div>
+        </div>
+      </form>
+      <form>
+        <h5>Waypoint 3</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="w3-lat">Latitude</label>
+            <input type="number" class="form-control" id="w3-lat" />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="w3-lon">Longitude</label>
+            <input type="number" class="form-control" id="w3-lon" />
+          </div>
+        </div>
+      </form>
+      <br />
+      <div class="text-center">
+        <!-- Calls setWaypoint() function from main.js when button is clicked -->
+        <input
+          type="button"
+          class="submit btn btn-outline-dark btn-block"
+          value="Set Waypoints"
+          onclick="loading(); initMap()"
+        />
+      </div>
+    </div>
+    <div class="welcome-thumb">
+      <img id="qr" src="" width="60%" />
+    </div>
+
+    <!-- Google Map API -->
+    <script>
+      function initMap() {
+        var w1lat = parseFloat(document.getElementById('w1-lat').value);
+        var w1lon = parseFloat(document.getElementById('w1-lon').value);
+        var w2lat = parseFloat(document.getElementById('w2-lat').value);
+        var w2lon = parseFloat(document.getElementById('w2-lon').value);
+        var w3lat = parseFloat(document.getElementById('w3-lat').value);
+        var w3lon = parseFloat(document.getElementById('w3-lon').value);
+
+        //console.log(w1lat, w1lon);
+        //var myLatLng = {lat: }
+        var options = {
+          zoom: 17.5,
+          center: {lat: 50.798224, lng: -1.107873},
+        };
+        var map = new google.maps.Map(document.getElementById('map'), options);
+        /*
+        var marker = new google.maps.Marker({
+          position: {
+            lat: w1lat,
+            lng: w1lon,
+          },
+          map: map,
+          icon:
+            'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        });
+        var infoWindow = new google.maps.InfoWindow({
+          content: '<h1>Waypoint 1</h1>',
+        });
+        marker.addListener('click', function () {
+          infoWindow.open(map, marker);
+        }); */
+
+        // Array of Markers -- this will hold the markers
+        var markers = [];
+
+        addMarker({lat: w1lat, lng: w1lon});
+        addMarker({lat: w2lat, lng: w2lon});
+        addMarker({lat: w3lat, lng: w3lon});
+
+        function addMarker(coords) {
+          var marker = new google.maps.Marker({
+            position: coords,
+            map: map,
+            icon:
+              'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          });
+          markers.push(marker);
+        }
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxUUZqZAwLMPsuB2XFM7kDVQCzlodM7b0&callback=initMap"
+    ></script>
+  </body>
+</html>
