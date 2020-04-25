@@ -38,7 +38,7 @@ function setWaypoint() {
       msgDiv.className = 'alert alert-success';
       msgDiv.appendChild(
         document.createTextNode(
-          'Your waypoints have been set successfully. Check map to see the markers'
+          'Your waypoints have been set successfully Check map to see the markers'
         )
       );
       parent.insertBefore(msgDiv, heading);

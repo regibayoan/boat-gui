@@ -11,5 +11,5 @@ def set_waypoint(data1,data2,data3,data4,data5,data6):
     return 1
 
 
-eel.start('gui.html', size=(1000, 800))
+eel.start('gui.html', size=(600, 900))
 
